@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '2.0'
 
 setup(name='emc.policy',
       version=version,
@@ -16,7 +16,7 @@ setup(name='emc.policy',
         ],
       keywords='python plone',
       author='Adam tang',
-      author_email='yuejun.tang@gmail.com',
+      author_email='568066794@qq.com',
       url='https://github.com/collective/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
@@ -31,6 +31,7 @@ setup(name='emc.policy',
           'z3c.unconfigure',
           'collective.wtf',
           'collective.monkeypatcher',
+          'collective.filepreviewbehavior',
                     
           # -*- Extra requirements: -*-
       ],
@@ -43,6 +44,4 @@ setup(name='emc.policy',
       [z3c.autoinclude.plugin]
       target = plone
       """,
-#      setup_requires=["PasteScript"],
-#      paster_plugins=["ZopeSkel"],
       )
