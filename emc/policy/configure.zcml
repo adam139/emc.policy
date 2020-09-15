@@ -37,16 +37,16 @@
    <include package=".patch" />
 
 
-	<!-- deleted content fire a log event -->
+ <!-- deleted content fire a log event -->
     <subscriber
     	for="plone.app.contenttypes.interfaces.IDocument
     	zope.lifecycleevent.interfaces.IObjectModifiedEvent"
     	handler=".subscriber.objectModified"
     />
     <subscriber
-    	for="plone.app.contenttypes.interfaces.IFile
-    	zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-    	handler=".subscriber.objectModified"
+    for="plone.app.contenttypes.interfaces.IFile
+    zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".subscriber.objectModified"
     />
     <subscriber
     	for="plone.app.contenttypes.interfaces.IImage
@@ -138,7 +138,7 @@
         <depends name='typeinfo' />
     </genericsetup:importStep>
 
-    <!--
+    <!-- management upgrade step
    	<genericsetup:upgradeStep
       	title="Create management users and groups"
       	description="Create management users and groups for EMC"
