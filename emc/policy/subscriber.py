@@ -1,6 +1,7 @@
 #-*- coding: UTF-8 -*-
 from zope.component import getMultiAdapter
-from zope.component import getUtility
+from emc.kb.interfaces import IDbapi
+from zope.component import queryUtility
 from zope.site.hooks import getSite
 from Products.CMFCore.utils import getToolByName
 from Products.PluggableAuthService.interfaces.events import IUserLoggedInEvent
@@ -13,7 +14,7 @@ import datetime
 def UserLogoutEventHandler(event):
     """normal users logout event handler"""
     
-    from emc.kb.interfaces import IUserLogLocator
+    
 #     dbapi,timeout,bsize,percentage,max = fetch_log_parameter('userlog')  
 #     # check log size and send warning
 #     userid = '444444555555666666'
@@ -26,18 +27,17 @@ def UserLogoutEventHandler(event):
     values = {'userid':event.userid,'datetime':event.datetime,
               'ip':event.ip,'type':0,'operlevel':5,'result':1,'description':u''}                
     values['description'] = u"%s登出了EMC系统" % (event.userid)  
-    locator = getUtility(IUserLogLocator)
+    locator = queryUtility(IDbapi, name='userlog')
     locator.add(values)
 
 def fetch_log_parameter(table):
     "fetch log system's settings"
-    from emc.kb.interfaces import IDbapi
-    from zope.component import queryUtility    
+
 #     from emc.policy.utils import CheckLog
     from plone.registry.interfaces import IRegistry
     from emc.kb.interfaces import ILogSettings
     dbapi = queryUtility(IDbapi, name=table)
-    registry = getUtility(IRegistry)        
+    registry = queryUtility(IRegistry)        
     settings = registry.forInterface(ILogSettings, check=False)
     timeout = settings.timeout
     bsize = settings.bsize
@@ -59,7 +59,7 @@ def check_size(dbapi,percentage,max,userid,url):
 def UserLoginEventHandler(event):
     """normal users login event handler"""
     
-    from emc.kb.interfaces import IUserLogLocator
+    
 #     dbapi,timeout,bsize,percentage,max = fetch_log_parameter('userlog')  
 #     # check log size and send warning
 #     userid = '444444555555666666'
@@ -76,13 +76,13 @@ def UserLoginEventHandler(event):
     else:
         values['description'] = u"%s%s" % (event.userid,event.description)
         values['operlevel'] = 4 
-    locator = getUtility(IUserLogLocator)
+    locator = queryUtility(IDbapi, name='userlog')
     locator.add(values)
 
 def AdminLogoutEventHandler(event):
     """the system administrators logout event handler"""
 
-    from emc.kb.interfaces import IAdminLogLocator
+    
     dbapi,timeout,bsize,percentage,max = fetch_log_parameter('adminlog')  
     # check log size and send warning
     userid = '777777888888999999'
@@ -99,12 +99,12 @@ def AdminLogoutEventHandler(event):
     else:
         values['description'] = u"%s%s" % (event.adminid,event.description)
         values['operlevel'] = 4         
-    locator = getUtility(IAdminLogLocator)
+    locator = queryUtility(IDbapi, name='adminlog')
     locator.add(values)
 
 def AdminLoginEventHandler(event):
     """the system administrators login event handler"""
-    from emc.kb.interfaces import IAdminLogLocator
+    
     dbapi,timeout,bsize,percentage,max = fetch_log_parameter('adminlog')  
     # check log size and send warning
     userid = '777777888888999999'
@@ -122,39 +122,39 @@ def AdminLoginEventHandler(event):
         values['description'] = u"%s%s" % (event.adminid,event.description)
         values['operlevel'] = 4
 #     values['description'] = u"%s登陆了EMC系统" % (event.adminid)  
-    locator = getUtility(IAdminLogLocator)
+    locator = queryUtility(IDbapi, name='adminlog')
     locator.add(values)
     
 def DeleteMemberEventHandler(event):
     """the system administrator delete specify user handler"""
-    from emc.kb.interfaces import IAdminLogLocator,IDbapi
-    from zope.component import getUtility,queryUtility
+    
+
     dbapi = queryUtility(IDbapi, name="adminlog")
 #     rt = check_log(dbapi)
     
     values = {'adminid':event.adminid,'userid':event.userid,'datetime':event.datetime,
               'ip':event.ip,'type':0,'operlevel':2,'result':1,'description':u''}                
     values['description'] = u"管理员%s删除了%s" % (event.adminid,event.userid)  
-    locator = getUtility(IAdminLogLocator)
+    locator = queryUtility(IDbapi, name='adminlog')
     locator.add(values)
     
 def CreateMemberEventHandler(event):
     """the system administrator create specify user handler"""
-    from emc.kb.interfaces import IAdminLogLocator,IDbapi
-    from zope.component import getUtility,queryUtility
+    
+
     dbapi = queryUtility(IDbapi, name="adminlog")
 #     rt = check_log(dbapi)
     
     values = {'adminid':event.adminid,'userid':event.userid,'datetime':event.datetime,
               'ip':event.ip,'type':0,'operlevel':4,'result':1,'description':u''}                
     values['description'] = u"管理员%s创建了%s%s" % (event.adminid,event.userid,event.description)  
-    locator = getUtility(IAdminLogLocator)
+    locator = queryUtility(IDbapi, name='adminlog')
     locator.add(values)
     
 def ChangeMemberEventHandler(event):
     """the system administrator change specify user handler"""
-    from emc.kb.interfaces import IAdminLogLocator,IDbapi
-    from zope.component import getUtility,queryUtility
+    
+
 #     dbapi = queryUtility(IDbapi, name="adminlog")
 #     rt = check_log(dbapi)
     
@@ -162,15 +162,12 @@ def ChangeMemberEventHandler(event):
               'ip':event.ip,'type':0,'operlevel':4,'result':1,'description':u''}                
     values['description'] = u"管理员%s修改了%s:%s" % (event.adminid,event.userid,event.description)  
 
-    locator = getUtility(IAdminLogLocator)
+    locator = queryUtility(IDbapi, name='adminlog')
     locator.add(values)
          
 def objectCreated(obj,event):
     "ObjectCreated event handler"
-      
-    from emc.kb.interfaces import IUserLogLocator
-    from zope.component import getUtility
-    from plone import api   
+
     adminid = obj.creators
     created = obj.created().strftime(fmt)
     ip = get_ip()
@@ -181,15 +178,12 @@ def objectCreated(obj,event):
     values = {'userid':user,'datetime':created,
               'ip':ip,'type':0,'operlevel':4,'result':1,'description':u''}                
     values['description'] = u"%s创建了:%s" % (user,obj.title) 
-    locator = getUtility(IUserLogLocator)
+    locator = queryUtility(IDbapi, name='userlog')
     locator.add(values)
 
 def objectModified(obj,event):
     "ObjectCreated event handler"
-      
-    from emc.kb.interfaces import IUserLogLocator
-    from zope.component import getUtility
-    from plone import api   
+
     adminid = obj.creators
     created = obj.created().strftime(fmt)
     ip = get_ip()
@@ -200,15 +194,12 @@ def objectModified(obj,event):
     values = {'userid':user,'datetime':created,
               'ip':ip,'type':0,'operlevel':5,'result':1,'description':u''}                
     values['description'] = u"%s修改了:%s" % (user,obj.title) 
-    locator = getUtility(IUserLogLocator)
+    locator = queryUtility(IDbapi, name='userlog')
     locator.add(values)
         
 def objectDeleted(obj,event):
     "ObjectDeleted event handler"
-      
-    from emc.kb.interfaces import IUserLogLocator
-    from zope.component import getUtility
-    from plone import api   
+
     adminid = obj.creators
     dt = datetime.datetime.now().strftime(fmt)
     ip = get_ip()
@@ -220,7 +211,7 @@ def objectDeleted(obj,event):
     values = {'userid':user,'datetime':dt,
               'ip':ip,'type':0,'operlevel':2,'result':1,'description':u''}                
     values['description'] = u"%s删除了:%s" % (user,obj.title) 
-    locator = getUtility(IUserLogLocator)
+    locator = queryUtility(IDbapi, name='userlog')
     locator.add(values)
 
 def userLoginedIn(event):
