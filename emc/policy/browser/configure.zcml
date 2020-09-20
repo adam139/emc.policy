@@ -225,5 +225,5 @@
 	<browser:jbot
     	directory="override"
     	layer="emc.theme.interfaces.IThemeSpecific"  />
-	<include zcml:condition="installed plone.scale" file="scaling.zcml" />            
+<!--	<include zcml:condition="installed plone.scale" file="scaling.zcml" />        -->    
 </configure>
