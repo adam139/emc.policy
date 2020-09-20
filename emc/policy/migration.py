@@ -50,7 +50,8 @@ def add_navigator_portlet(context):
     bns = pc(query)
     if len(bns) == 0: return
     obj = bns[0].getObject()
-    column = getUtility(IPortletManager, name=u"plone.leftcolumn")
+#     column = getUtility(IPortletManager, name=u"plone.leftcolumn")
+    column = getUtility(IPortletManager, name=u"plone.rightcolumn")
     
     # We multi-adapt the object and the column to an assignment mapping,
     # which acts like a dict where we can put portlet assignments
