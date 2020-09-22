@@ -34,20 +34,19 @@ class FrontpageView(sysAjaxListingView):
         query['path'] = "/".join(kb.getPhysicalPath())
         return query         
         
-# roll table output
     def getKBFolder(self):
         
         brains = self.catalog()({'object_provides':Ikbfolder.__identifier__})
         context = brains[0].getObject()
-        return context        
+        return context
         
 class search(ajaxsearch):
     
     
-    def render(self):    
+    def render(self):
 #        self.portal_state = getMultiAdapter((self.context, self.request), name=u"plone_portal_state")
-        searchview = getMultiAdapter((self.context, self.request),name=u"index.html")        
- # datadic receive front ajax post data       
+        searchview = getMultiAdapter((self.context, self.request),name=u"index.html")
+ # datadic receive front ajax post data
         datadic = self.request.form
         start = int(datadic['start']) # batch search start position
         datekey = int(datadic['datetype'])  # 对应 最近一周，一月，一年……

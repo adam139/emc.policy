@@ -134,7 +134,7 @@
       class=".homepage.search"
  	  layer="emc.theme.interfaces.IThemeSpecific"       
       permission="zope.Public"
-      />      
+      />
   
    <browser:page
       for="*"
