@@ -1,9 +1,20 @@
 Changelog
 =========
 
-master (2019-08-07)
+2.0 (2020-09-30)
 -------------------
-merge dev1.3
+
+* patch Products.PlonePAS 
+  [adam]
+
+* patch plone.dexterity 
+  [adam]
+
+
+1.0 (2019-08-07)
+-------------------
+
+* merge dev1.3
 
 
 1.0dev (unreleased)
