@@ -9,7 +9,6 @@ def logout(self, REQUEST):
     """
     user = getSecurityManager().getUser()
     if user is None:return
-
     logoutEvent = NormalUserlogoutEvent(userid = getfullname_orid(user),
                                      datetime = datetime.datetime.now().strftime(fmt),
                                      ip = get_ip(),
@@ -29,7 +28,6 @@ def logout(self, REQUEST):
                                      description = "",
                                      result = 1)
             event.notify(logoutEvent)
-            
                     
     self.resetCredentials(REQUEST, REQUEST['RESPONSE'])
 

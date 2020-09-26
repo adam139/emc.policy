@@ -86,12 +86,12 @@ def loginUser(self, REQUEST=None):
                                      ip = get_ip(),
                                      type = 0,
                                      description = "",
-                                     result = 1)                
+                                     result = 1)
                 event.notify(loginEvent)
         if res:
             event.notify(UserInitialLoginInEvent(user))
             self.createMemberArea()
-            event.notify(MemberAreaCreatedEvent(user))                        
+            event.notify(MemberAreaCreatedEvent(user))
         else:
             event.notify(UserLoggedInEvent(user))
 
@@ -104,13 +104,9 @@ def loginUser(self, REQUEST=None):
         if REQUEST.get('__cp', None) is not None:
             REQUEST.RESPONSE.expireCookie('__cp', path='/')
 
-
         try:
             pas = getToolByName(self, 'acl_users')
-            
             pas.credentials_cookie_auth.login()
-
-
         except AttributeError:
             # The cookie plugin may not be present
             pass

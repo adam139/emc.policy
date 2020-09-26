@@ -8,7 +8,7 @@ from emc.policy.interfaces import ICreateMemberEvent
 from emc.policy.interfaces import IChangeMemberEvent
 from emc.policy.interfaces import IDeleteMemberEvent
 
-# class logsEvent
+# base class logsEvent
 class EventFilter(object):
     """
     if current user has 'manager' role,cancel log event
@@ -73,7 +73,7 @@ class NormalUserlogoutEvent(EventFilter):
      
 class DeleteMemberEvent(EventFilter):
     """manager through user&group controlpanel delete the specify member,fire this event"""
-    interface.implements(IDeleteMemberEvent)           
+    interface.implements(IDeleteMemberEvent)
 
 
 class CreateMemberEvent(EventFilter):

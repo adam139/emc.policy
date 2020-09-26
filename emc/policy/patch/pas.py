@@ -104,7 +104,9 @@ def _doAddUser(self, login, password, roles, domains, groups=None, **kw):
     mtool = getToolByName(self, 'portal_membership')
     current = mtool.getAuthenticatedMember()
     ucurrent =  getfullname_orid(current)
-    if not bool(ucurrent): return retval    
+    import pdb
+    pdb.set_trace()
+    if not bool(ucurrent): return retval
     descrip = ""
     if bool(retval):
         if len(roles)!=0:
@@ -160,6 +162,8 @@ def _doDelUser(self, id):
             pass
         else:
             notify(PrincipalDeleted(id))
+            import pdb
+            pdb.set_trace()
             delEvent = DeleteMemberEvent(adminid = getfullname_orid(current),
                                      userid = user.getProperty('fullname',user.getId()),
                                      datetime = datetime.datetime.now().strftime(fmt),
@@ -190,6 +194,8 @@ def _doChangeUser(self, principal_id, password, roles, domains=(), groups=None,
         except:
             pass
         else:
+            import pdb
+            pdb.set_trace()
             chgEvent = ChangeMemberEvent(adminid = getfullname_orid(current),
                                      userid = getfullname_orid(guest),
                                      datetime = datetime.datetime.now().strftime(fmt),
