@@ -1,7 +1,14 @@
 <?xml version="1.0"?>
 <registry>
   <!--resource -->
-  
+
+  <records
+      prefix="plone.resources/mockup-patterns-structureupdater"
+      interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <value key="js">++resource++emc.policy/patterns/mockup-patterns-structureupdater.js</value>
+  </records>
+
+
   <!-- Bundles -->
   <records prefix="plone.bundles/emc-legacy"
             interface='Products.CMFPlone.interfaces.IBundleRegistry'>    
