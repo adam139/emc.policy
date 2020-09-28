@@ -26,8 +26,8 @@
 
     <tal:level define="item_class string:state-${node/normalized_review_state};
         item_type_class python:'contenttype-' + normalizeString(item_type);
-        item_class python:is_current and item_class + ' navTreeCurrentItem' or item_class;">               
-         <a tal:condition="haschildren"              	             	 
+        item_class python:is_current and item_class + ' navTreeCurrentItem' or item_class;">
+         <a tal:condition="haschildren"
               	data-toggle="selfcollapse" 
               	tal:attributes="data-target python:item_id;
               	aria-controls python:item_id;
@@ -38,16 +38,15 @@
               	<img class="hidden" alt="-" src="++resource++emc.policy/images/mi.gif"/>
               <span tal:content="node/Title"
               	tal:attributes="data-target python:item_url">Selected Item Title</span>
-              <span class="badge" tal:content="python:len(children)">12</span>              	 
+              <span class="badge" tal:content="python:len(children)">12</span>
         </a>
  
         <a tal:condition="python:not haschildren"
-        	tal:attributes="href python:use_remote_url and item_remote_url or item_url;
+        tal:attributes="href python:use_remote_url and item_remote_url or item_url;
                            title node/Description;
                            data-id python:item_id;
-                           class string:nocollapse $item_class${li_class}${li_extr_class}${li_folder_class} $item_type_class">          
-                                 
-              <span tal:replace="node/Title">Selected Item Title</span>              
+                           class string:nocollapse $item_class${li_class}${li_extr_class}${li_folder_class} $item_type_class">
+              <span tal:replace="node/Title">Selected Item Title</span>
         </a>
 
         <tal:children condition="python: len(children) > 0">

@@ -144,7 +144,7 @@ class CustomNavtreeStrategy(SitemapNavtreeStrategy):
         )
         newNode['normalized_id'] = idnormalizer.normalize(newNode['id'])
 
-        return newNode                    
+        return newNode
 
     def subtreeFilter(self, node):
         return True
