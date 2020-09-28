@@ -7,16 +7,28 @@
       interface='Products.CMFPlone.interfaces.IResourceRegistry'>
     <value key="js">++resource++emc.policy/patterns/mockup-patterns-structureupdater.js</value>
   </records>
-
+  
+  <records
+      prefix="plone.resources/emc-legacy-custom"
+      interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <value key="js">++resource++emc.policy/emc-legacy-custom.js</value>
+  </records>
 
   <!-- Bundles -->
-  <records prefix="plone.bundles/emc-legacy"
+  <records prefix="plone.bundles/emc-custom"
             interface='Products.CMFPlone.interfaces.IBundleRegistry'>    
     <value key="depends">plone</value>
-    <value key="jscompilation">++resource++emc.policy/emc-legacy-custom.js</value>
-    <value key="last_compilation">2017-04-12 00:00:00</value>
-    <value key="compile">False</value>
+    <value key="resources">
+    <element>emc-legacy-custom</element> 
+    </value>
+    <value key="jscompilation">++resource++emc.policy/emc-custom.min.js</value>
+    <value key="last_compilation">2020-09-28 00:00:00</value>
+    <value key="compile">True</value>
     <value key="enabled">True</value>
+    <value key="merge_with">default</value>
+    <value key="stub_js_modules">
+        <element>jquery</element>
+    </value>
   </records>
 <!-- navigation setting -->
   <record name="plone.sitemap_depth" interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema" field="sitemap_depth">
