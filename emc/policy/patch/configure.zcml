@@ -26,14 +26,14 @@
      original="showChildrenOf"
      replacement=".navtree.showChildrenOf"
   />
-
+    -->
      <monkey:patch
      description="patch dexterity for notify PreviewableFileCreatedEvent"
      class ="plone.dexterity.browser.add.DefaultAddForm"
      original="add"
      replacement=".add.add"
   />
-    -->
+
     <monkey:patch
      description="patch cookieAuth to cancel login form tips"
      class ="Products.PluggableAuthService.plugins.CookieAuthHelper.CookieAuthHelper"
