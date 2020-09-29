@@ -573,8 +573,6 @@ class Renderer(baseRender):
         if _marker is None:
             _marker = []
         context = aq_inner(self.context)
-#         import pdb
-#         pdb.set_trace()
         queryBuilder = getMultiAdapter((context, self.data), INavigationQueryBuilder)
         strategy = getMultiAdapter((context, self.data), ICustomNavtreeStrategy)
         return buildFolderTree(context, obj=context, query=queryBuilder(), strategy=strategy)

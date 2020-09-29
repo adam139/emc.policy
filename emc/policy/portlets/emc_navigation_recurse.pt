@@ -28,7 +28,7 @@
         item_type_class python:'contenttype-' + normalizeString(item_type);
         item_class python:is_current and item_class + ' navTreeCurrentItem' or item_class;">
          <a tal:condition="haschildren"
-              	data-toggle="selfcollapse" 
+              	data-toggle="collapse" 
               	tal:attributes="data-target python:item_id;
               	aria-controls python:item_id;
               	href python:item_url;
@@ -49,7 +49,7 @@
               <span tal:replace="node/Title">Selected Item Title</span>
         </a>
 
-        <tal:children condition="python: len(children) > 0">
+        <tal:children condition="haschildren">
             <ul tal:attributes="class python:'collapse navTree navTreeLevel'+str(level);
             	data-id python:item_id"
                 tal:condition="python: len(children) > 0 and show_children and bottomLevel and level < bottomLevel or True">
