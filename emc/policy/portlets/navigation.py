@@ -1,5 +1,7 @@
-from plone import api
-from Acquisition import aq_inner, aq_base, aq_parent
+# -*- coding: utf-8 -*-
+from Acquisition import aq_base
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from ComputedAttribute import ComputedAttribute
 from types import StringType
 from plone.app.layout.navigation.interfaces import INavigationQueryBuilder
@@ -25,14 +27,20 @@ from Products.CMFPlone.browser.navtree import SitemapNavtreeStrategy
 from Products.CMFPlone.defaultpage import is_default_page
 from Products.CMFPlone.interfaces import INavigationSchema
 from Products.CMFPlone.interfaces import INonStructuralFolder
+from Products.CMFPlone.interfaces import ISiteSchema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.MimetypesRegistry.MimeTypeItem import guess_icon_path
 from zExceptions import NotFound
 from zope import schema
-from zope.component import adapts, getMultiAdapter, queryUtility
+from zope.component import adapts
+from zope.component import getMultiAdapter
 from zope.component import getUtility
-from zope.interface import implements, Interface
+from zope.component import queryUtility
 from zope.interface import implementer
+from zope.interface import implements
+from zope.interface import Interface
 
+import os
 from plone.app.portlets.portlets.navigation import INavigationPortlet
 from plone.app.portlets.portlets.navigation import Assignment as baseAssignment
 from plone.app.portlets.portlets.navigation import  Renderer as baseRender
@@ -566,7 +574,7 @@ class Renderer(baseRender):
             return self.recurse(children=data.get('children', []), level=1, bottomLevel=bottomLevel)
     
     _template = ViewPageTemplateFile('navigation.pt')
-    recurse = ViewPageTemplateFile('emc_navigation_recurse.pt')
+    recurse = ViewPageTemplateFile('navigation_recurse.pt')
 
     @memoize
     def getNavTree(self, _marker=None):
