@@ -121,10 +121,12 @@ class GroupsOverviewControlPanel(UsersGroupsControlPanelView):
             results.append(group_info)
         # Sort the groups by title
         sortedResults = searchView.sort(results, 'title')
-
+        #  s2[0]['groupid']
+        # filter  'Administrators'
+        art = filter(lambda x:x['groupid']!='Administrators',sortedResults)
         # Reset the request variable, just in case.
         self.request.set('__ignore_group_roles__', False)
-        return sortedResults
+        return art
 
     def manageGroup(self, groups=None, delete=None):
         if groups is None:
