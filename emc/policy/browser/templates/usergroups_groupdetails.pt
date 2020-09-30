@@ -88,10 +88,9 @@
                 id="createGroup"
                 name="groups"
                 method="post"
-                class="enableUnloadProtection pat-formautofocus"
+                class="pat-formunloadalert pat-formautofocus"
                 tal:attributes="action string:$portal_url/$template_id"
-                tal:define="targetobject context/portal_groupdata;
-                            targetGetProperty nocall:view/group/getProperty | nocall:context/returnNone;">
+                tal:define="targetobject context/portal_groupdata;">
 
               <fieldset>
                   <div class="field" metal:define-slot="name">
@@ -115,7 +114,7 @@
                       <div class="field"
                            tal:define="id property/id;
                                        type property/type;
-                                       propertyvalue python:targetGetProperty(id, None);">
+                                       propertyvalue python:view.get_group_property(id);">
 
                       <label for="value"
                               tal:attributes="for id"
