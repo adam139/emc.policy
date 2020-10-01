@@ -1,8 +1,8 @@
 #-*- coding: UTF-8 -*-
 from zope.i18nmessageid import MessageFactory
 
-# import logging
-
+import logging
+logger = logging.getLogger(__name__)
 import datetime
 fmt = "%Y-%m-%d %H:%M:%S"
 _ = MessageFactory('emc.policy')
@@ -39,15 +39,21 @@ def get_ip(request = None):
     ip = request.get("HTTP_CLIENTIP",'')
   
     if bool(ip):
-#         logging.info("client ip:%s" % str(ip))        
+#         logger.info("fetched from HTTP_CLIENTIP,ip:%s,type:%s" % (ip,type(ip)))
         return ip    
 
     elif "HTTP_X_FORWARDED_FOR" in request.environ:
         # Virtual host
         ip = request.environ["HTTP_X_FORWARDED_FOR"]
+        if len(ip.split(',')) > 1:
+            ip = ip.split(',')[0]
+#         logger.info("fetched from HTTP_X_FORWARDED_FOR,ip:%s,type:%s" % (ip,type(ip)))
+        #fetched from HTTP_X_FORWARDED_FOR,ip:175.1.109.33, 172.23.0.7,type:<type 'str'>
+        
     elif "HTTP_HOST" in request.environ:
         # Non-virtualhost
         ip = request.environ["REMOTE_ADDR"]
+#         logger.info("fetched from REMOTE_ADDR,ip:%s,type:%s" % (ip,type(ip)))
     else:
         # Unit test code?
         ip = ""
