@@ -14,7 +14,12 @@
   	component=".vocabularies.safe_level_factory"
   	name="emc.safe_level"
 	/>
-	
+
+  <utility
+    component=".vocabularies.ExcludeProjectKeywordsVocabularyFactory"
+    name="plone.app.vocabularies.ExcludeProjectKeywords"
+    />
+    
   <genericsetup:registerProfile
       name="default"
       title="emc.policy"
