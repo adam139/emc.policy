@@ -3,8 +3,15 @@ from zope import schema
 from zope.interface import Interface
 from zope.interface import Attribute
 from emc.policy import MessageFactory as _
-# event
-   
+from plone.app.content.interfaces import IStructureAction
+
+
+# custom action
+class IProjectStructureAction(IStructureAction):
+    "mark insterface"
+    
+    
+# event   
 class IAddloginEvent(Interface):
     """用户登陆事件"""
 

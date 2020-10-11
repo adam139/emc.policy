@@ -169,6 +169,28 @@
     menu="plone_displayviews"
     title="Folder view"
     />
+    
+  <browser:page
+    for="Products.CMFCore.interfaces._content.IFolderish"
+    class=".ProjectFolderContentsView"
+    name="project_contents"
+ 	layer="emc.theme.interfaces.IThemeSpecific"     
+    template="templates/folder_contents.pt"
+    permission="cmf.ListFolderContents"
+    menu="plone_displayviews"
+    title="Project Folder view"
+    />
+
+  <browser:page
+    for="Products.CMFCore.interfaces._content.IFolderish"
+    name="pt-fc-tags"
+    class=".tags.TagsActionView"
+    permission="cmf.ListFolderContents"
+    />
+  <utility component=".tags.TagsAction"
+           provides="emc.policy.interfaces.IProjectStructureAction"
+           name="tags" />
+           
 
   <browser:page
       for="*"
