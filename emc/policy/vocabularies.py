@@ -5,6 +5,7 @@ from zope.component import queryUtility
 from plone.registry.interfaces import IRegistry
 from plone.app.vocabularies.terms import safe_encode
 from plone.app.vocabularies.terms import safe_simplevocabulary_from_values
+from plone.app.vocabularies.terms import safe_simpleterm_from_value
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
@@ -14,7 +15,21 @@ from zope.interface import implementer
 from emc.project.content.projectfolder import IProjectFolder
 from Products.CMFPlone import PloneMessageFactory as _
 from zope.site.hooks import getSite
+from collective.gtags.interfaces import ITagSettings
 
+
+def project_safe_simplevocabulary_from_values(values, exclude=None):
+    """Creates (filtered) SimpleVocabulary from iterable of untrusted values.
+    """
+            #[item for item in x if item not in y]
+    
+    items = [i for i  in values]
+    items = [
+        safe_simpleterm_from_value(i)
+        for i in items
+        if i.decode('utf-8') not in exclude 
+    ]
+    return SimpleVocabulary(items)
 
 """
 非密  60
@@ -122,6 +137,17 @@ class ExcludeProjectKeywordsVocabulary(object):
     def section(self, context):
         """gets section from which subjects are used.
         """
+        registry = queryUtility(IRegistry)
+        if registry is None:
+            return None
+        if registry.get('plone.subjects_of_navigation_root', False):
+            portal = getToolByName(context, 'portal_url').getPortalObject()
+            return getNavigationRootObject(context, portal)
+        return None
+    
+    def project_section(self, context):
+        """gets section from which subjects are used.
+        """
         site = getSite()
         self.catalog = getToolByName(site, 'portal_catalog', None)
         pjt = self.catalog(object_provides=IProjectFolder.__identifier__)
@@ -130,13 +156,13 @@ class ExcludeProjectKeywordsVocabulary(object):
         else:
             return None
 
-    def all_keywords(self, kwfilter):
+    def all_keywords(self, kwfilter,exclude=None):
         site = getSite()
         self.catalog = getToolByName(site, 'portal_catalog', None)
         if self.catalog is None:
             return SimpleVocabulary([])
         index = self.catalog._catalog.getIndex(self.keyword_index)
-        return safe_simplevocabulary_from_values(index._index, query=kwfilter)
+        return project_safe_simplevocabulary_from_values(index._index, exclude=exclude)
 
     def keywords_of_section(self, section, kwfilter):
         """Valid keywords under the given section.
@@ -168,12 +194,11 @@ class ExcludeProjectKeywordsVocabulary(object):
 
     def __call__(self, context, query=None):
         section = self.section(context)
-        import pdb
-        pdb.set_trace()
+        settings = queryUtility(IRegistry).forInterface(ITagSettings)
+        tags = settings.project_tags
         if section is None:
-            return self.all_keywords(query)
-        #[item for item in x if item not in y]
-        return [item for  item in self.all_keywords(query)  if item not in self.keywords_of_section(section, query)]
+            return self.all_keywords(query,exclude=tags)
+        return self.keywords_of_section(section, query)
 
 
 ExcludeProjectKeywordsVocabularyFactory = ExcludeProjectKeywordsVocabulary()
