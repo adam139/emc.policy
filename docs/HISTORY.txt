@@ -1,8 +1,10 @@
 Changelog
 =========
 
-dev (2020-10-11)
+dev (2020-10-12)
 --------------------
+
+* custom plone.app.content.browser.tag module keyword
 
 * fix plone.app.content.browser.vocabulary module for collective.gtags.ProjectKeywords permission
 
