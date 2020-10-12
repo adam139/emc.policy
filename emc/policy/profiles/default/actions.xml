@@ -4,7 +4,14 @@
  <action-provider name="portal_workflow"/>
  <action-provider name="portal_types"/>
  <action-provider name="portal_actions"/>
-
+<object name="object_buttons" meta_type="CMF Action Category">
+  <object name="ical_import_enable" meta_type="CMF Action" i18n:domain="plone">
+   <property name="title" i18n:translate="title_ical_import_enable">Enable icalendar import</property>
+   <property name="description" i18n:translate="help_ical_import_enable">Click to enable the icalendar import feature on this context.</property>
+   <property name="visible">False</property>
+  </object>
+  </object>
+  
  <object name="portal_tabs" meta_type="CMF Action Category">
   <property name="title"></property>
   <object name="workspace" meta_type="CMF Action" i18n:domain="plone">
@@ -21,6 +28,7 @@
    <property name="visible">False</property>
   </object>  
  </object>
+ 
  <object name="dashboard" meta_type="CMF Action" i18n:domain="plone">
    <property name="title" i18n:translate="">Dashboard</property>
    <property name="description" i18n:translate=""></property>
@@ -33,6 +41,7 @@
    </property>
    <property name="visible">False</property>
  </object>
+ 
  <object name="user" meta_type="CMF Action Category">
   <property name="title"></property>
   <object name="systemlog" meta_type="CMF Action" i18n:domain="plone">
