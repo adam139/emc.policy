@@ -1,8 +1,12 @@
 Changelog
 =========
 
-dev (2020-10-12)
+dev (2020-10-15)
 --------------------
+
+* custom mockup add mockup-pattern-project-select2 and adjust config.js
+
+* custom Products.CMFPlone plone.js and dependencies profile for  add mockup-patterns-project-select2 resource
 
 * custom plone.app.content.browser.tag module keyword
 
