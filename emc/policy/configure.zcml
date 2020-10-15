@@ -27,6 +27,13 @@
       description="Installs the emc.policy package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
+  <genericsetup:registerProfile
+      name="postinstall"
+      title="emc.policy postinstall profile"
+      directory="profiles/postinstall"
+      description="Postinstall the emc.policy package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
 
   <!-- -*- extra stuff goes here -*- -->
     <monkey:patch
