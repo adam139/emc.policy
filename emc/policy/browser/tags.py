@@ -44,9 +44,15 @@ class TagsActionView(ContentsBaseAction):
     failure_msg = _('Failed to modify tags on items')
 
     def action(self, obj):
-        toadd = self.request.form.get('toadd')
-        if toadd:
-            toadd = set(toadd.split(','))
+        tmp = self.request.form.get('toadd')
+        if tmp:
+            tmp = set(tmp.split(','))
+            if len(tmp) >1:
+                tl = []
+                tl.append(tmp.pop())
+                toadd = set(tl)
+            else:
+                toadd = tmp
         else:
             toadd = set([])
         toremove = self.request.get('toremove')
