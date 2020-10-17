@@ -47,3 +47,39 @@ class ProjectFolderContentsView(FolderContentsView):
             actions.append(utility)
         actions.sort(key=lambda a: a.order)
         return [a.get_options() for a in actions]
+    
+    def get_options(self):
+        site = get_top_site_from_url(self.context, self.request)
+        base_url = site.absolute_url()
+        base_vocabulary = '%s/@@getVocabulary?name=' % base_url
+        site_path = site.getPhysicalPath()
+        context_path = self.context.getPhysicalPath()
+        columns = self.get_columns()
+        options = {
+            'vocabularyUrl': '%splone.app.vocabularies.Catalog' % (
+                base_vocabulary),
+            'urlStructure': {
+                'base': base_url,
+                'appended': '/project_contents'
+            },
+            'moveUrl': '%s{path}/fc-itemOrder' % base_url,
+            'indexOptionsUrl': '%s/@@qsOptions' % base_url,
+            'contextInfoUrl': '%s{path}/@@fc-contextInfo' % base_url,
+            'setDefaultPageUrl': '%s{path}/@@fc-setDefaultPage' % base_url,
+            'availableColumns': columns,
+            'attributes': ['Title', 'path', 'getURL', 'getIcon', 'getMimeIcon', 'portal_type'] + list(columns.keys()),  # noqa
+            'buttons': self.get_actions(),
+            'rearrange': {
+                'properties': self.get_indexes(),
+                'url': '%s{path}/@@fc-rearrange' % base_url
+            },
+            'basePath': '/' + '/'.join(context_path[len(site_path):]),
+            'upload': {
+                'relativePath': 'fileUpload',
+                'baseUrl': base_url,
+                'initialFolder': IUUID(self.context, None),
+                'useTus': TUS_ENABLED
+            },
+            'thumb_scale': self.get_thumb_scale(),
+        }
+        return options
