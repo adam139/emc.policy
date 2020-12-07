@@ -60,12 +60,14 @@
      original="_base_args"
      replacement=".widget._base_args"
   />
+  <!--
     <monkey:patch
      description="patch Products ExternalEditor for file external edit"
      class ="Products.ExternalEditor.ExternalEditor.ExternalEditor"
      original="index_html"
      replacement=".ExternalEditor.index_html"
-  />  
+  />
+  -->
     <monkey:patch
      description="patch dexterity filepresentation for file external edit"
      class ="plone.dexterity.filerepresentation.DefaultReadFile"
