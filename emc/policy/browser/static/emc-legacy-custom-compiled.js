@@ -103,12 +103,15 @@ function detectIE() {
 
 //set submenu height to content's height
 
-	var leftHeight = $('.plone-nav  .dropdown-menu').height();
-	var rightHeight = $('#content').parent().height();
-	if((leftHeight) && leftHeight > rightHeight) {
-		leftHeight = rightHeight;
-		$('.plone-nav  .dropdown-menu').height(leftHeight).css("overflow","auto");
-		}
+var leftHeight = $('.plone-nav .dropdown-menu').height();
+var rightHeight = $('#content').parent().height();
+var maxHeight = 600;
+var isThanBigger = rightHeight > maxHeight
+var adjustHeight = isThanBigger ? maxHeight : rightHeight
+if((leftHeight) && leftHeight > rightHeight) {
+  leftHeight = adjustHeight;
+  $('.plone-nav .dropdown-menu').height(leftHeight).css("overflow","auto");
+  }  
 });
 define("/home/plone/workspace/emc/Plone5/emc/src/emc.policy/emc/policy/browser/static/emc-legacy-custom.js", function(){});
 
