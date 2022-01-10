@@ -100,4 +100,13 @@ function detectIE() {
   return false;
 }
 //end ie check
+
+//set submenu height to content's height
+
+	var leftHeight = $('.plone-nav  .dropdown-menu').height();
+	var rightHeight = $('#content').parent().height();
+	if((leftHeight) && leftHeight > rightHeight) {
+		leftHeight = rightHeight;
+		$('.plone-nav  .dropdown-menu').height(leftHeight).css("overflow","auto");
+		}
 });
