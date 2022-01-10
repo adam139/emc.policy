@@ -22,7 +22,7 @@
     <element>emc-legacy-custom</element> 
     </value>
     <value key="jscompilation">++resource++emc.policy/emc-custom.min.js</value>
-    <value key="last_compilation">2020-09-28 00:00:00</value>
+    <value key="last_compilation">2022-01-10 00:00:00</value>
     <value key="compile">True</value>
     <value key="enabled">True</value>
     <value key="merge_with">default</value>
