@@ -111,7 +111,9 @@ var adjustHeight = isThanBigger ? maxHeight : rightHeight
 if((leftHeight) && leftHeight > rightHeight) {
   leftHeight = adjustHeight;
   $('.plone-nav .dropdown-menu').height(leftHeight).css("overflow","auto");
-  }  
+  }  else {
+  	$('.plone-nav .dropdown-menu').height(leftHeight).css("overflow","auto");
+  }
 });
 define("/home/plone/workspace/emc/Plone5/emc/src/emc.policy/emc/policy/browser/static/emc-legacy-custom.js", function(){});
 
